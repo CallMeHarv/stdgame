@@ -1,0 +1,104 @@
+[gd_scene format=3 uid="uid://8lfdvmq57o4y"]
+
+[ext_resource type="Script" uid="uid://3i5b5p6l5jpo" path="res://Scripts/main_tower.gd" id="1_iikcy"]
+[ext_resource type="Texture2D" uid="uid://p5yokcj6on15" path="res://icon.svg" id="1_mtobq"]
+[ext_resource type="Script" uid="uid://y3d1pfd8yukt" path="res://Scripts/spawner.gd" id="2_i3s53"]
+[ext_resource type="PackedScene" uid="uid://b63vh40psoqup" path="res://Scenes/enemy.tscn" id="3_lpi8q"]
+[ext_resource type="Script" uid="uid://dg3bl44sna7el" path="res://Scripts/tower_weapon.gd" id="4_fdfa6"]
+[ext_resource type="PackedScene" uid="uid://bt76rfllv12by" path="res://Scenes/bullet.tscn" id="5_63s2w"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ho7dx"]
+radius = 56.88585
+
+[sub_resource type="Curve2D" id="Curve2D_lpi8q"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 641, -380, 0, 0, 0, 0, -629, -380, 0, 0, 0, 0, -660, 376, 0, 0, 0, 0, 655, 356, 0, 0, 0, 0, 641, -380)
+}
+point_count = 5
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wrryf"]
+radius = 180.73738
+
+[sub_resource type="LabelSettings" id="LabelSettings_ho7dx"]
+font_size = 31
+
+[sub_resource type="LabelSettings" id="LabelSettings_wrryf"]
+font_size = 36
+
+[node name="Main Tower" type="CharacterBody2D" unique_id=444647239]
+collision_mask = 4
+script = ExtResource("1_iikcy")
+
+[node name="Icon" type="Sprite2D" parent="." unique_id=1687588832]
+modulate = Color(2.9289904, 2.9289904, 2.9289904, 1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_mtobq")
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=543289404]
+scale = Vector2(0.5, 0.5)
+shape = SubResource("CircleShape2D_ho7dx")
+
+[node name="Spawner" type="Node2D" parent="." unique_id=893201046]
+script = ExtResource("2_i3s53")
+enemy = ExtResource("3_lpi8q")
+
+[node name="spawnTimer" type="Timer" parent="Spawner" unique_id=1860170558]
+wait_time = 0.7
+autostart = true
+
+[node name="Path2D" type="Path2D" parent="." unique_id=316070001]
+curve = SubResource("Curve2D_lpi8q")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D" unique_id=32220947]
+unique_name_in_owner = true
+position = Vector2(641, -380)
+rotation = 3.1415927
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1000561861]
+
+[node name="Tower Weapon" type="Node2D" parent="." unique_id=1841603169]
+script = ExtResource("4_fdfa6")
+bullet = ExtResource("5_63s2w")
+
+[node name="cooldown" type="Timer" parent="Tower Weapon" unique_id=1481741755]
+autostart = true
+
+[node name="Range" type="Area2D" parent="Tower Weapon" unique_id=1338893002]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tower Weapon/Range" unique_id=75670651]
+shape = SubResource("CircleShape2D_wrryf")
+
+[node name="Health" type="CanvasLayer" parent="." unique_id=1693774032]
+
+[node name="ProgressBar" type="ProgressBar" parent="Health" unique_id=322505478]
+offset_left = 2.0
+offset_top = 28.0
+offset_right = 394.0
+offset_bottom = 85.0
+value = 100.0
+
+[node name="Label" type="Label" parent="Health" unique_id=1954690688]
+offset_left = 146.0
+offset_top = 81.0
+offset_right = 239.0
+offset_bottom = 125.0
+text = "Tower"
+label_settings = SubResource("LabelSettings_ho7dx")
+
+[node name="game_over" type="Label" parent="." unique_id=1532182596]
+visible = false
+offset_left = 238.0
+offset_top = 162.0
+offset_right = 371.0
+offset_bottom = 213.0
+text = "Game Over!"
+label_settings = SubResource("LabelSettings_wrryf")
+
+[node name="Timer" type="Timer" parent="." unique_id=1007687999]
+wait_time = 3.0
+
+[connection signal="timeout" from="Spawner/spawnTimer" to="Spawner" method="_on_spawn_timer_timeout"]
+[connection signal="timeout" from="Tower Weapon/cooldown" to="Tower Weapon" method="_on_cooldown_timeout"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

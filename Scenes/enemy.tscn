@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://b63vh40psoqup"]
+
+[ext_resource type="Script" uid="uid://dfxw37hh00kfl" path="res://Scripts/enemy.gd" id="1_1f0kj"]
+[ext_resource type="PackedScene" uid="uid://cwabmdym5174g" path="res://Scenes/exp_coin.tscn" id="2_287tu"]
+[ext_resource type="Texture2D" uid="uid://p5yokcj6on15" path="res://icon.svg" id="2_afpow"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ho7dx"]
+radius = 24.020824
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wrryf"]
+radius = 30.413813
+
+[node name="Enemy" type="CharacterBody2D" unique_id=2079999507]
+collision_layer = 4
+motion_mode = 1
+script = ExtResource("1_1f0kj")
+loot_scene = ExtResource("2_287tu")
+
+[node name="Icon" type="Sprite2D" parent="." unique_id=614268956]
+modulate = Color(1.6197081, 0, 0, 1)
+scale = Vector2(0.415, 0.415)
+texture = ExtResource("2_afpow")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1525403744]
+shape = SubResource("CircleShape2D_ho7dx")
+
+[node name="Attack" type="Area2D" parent="." unique_id=1699437549]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Attack" unique_id=636464198]
+shape = SubResource("CircleShape2D_wrryf")
+
+[connection signal="body_entered" from="Attack" to="." method="_on_attack_body_entered"]

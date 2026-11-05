@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://bujnnblpqxefy"]
+
+[ext_resource type="PackedScene" uid="uid://8lfdvmq57o4y" path="res://Scenes/main_tower.tscn" id="1_jjgbg"]
+[ext_resource type="PackedScene" uid="uid://ir76x251ge5i" path="res://Scenes/player.tscn" id="2_bo1nx"]
+
+[node name="Main" type="Node2D" unique_id=1973567487]
+
+[node name="Main Tower" parent="." unique_id=444647239 instance=ExtResource("1_jjgbg")]
+
+[node name="Player" parent="." unique_id=1370725947 instance=ExtResource("2_bo1nx")]
+position = Vector2(-248, 4)

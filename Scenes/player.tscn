@@ -1,0 +1,183 @@
+[gd_scene format=3 uid="uid://ir76x251ge5i"]
+
+[ext_resource type="Script" uid="uid://cpnb3se4hc771" path="res://Scripts/player.gd" id="1_cvnsp"]
+[ext_resource type="Texture2D" uid="uid://p5yokcj6on15" path="res://icon.svg" id="2_6t5aa"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wrryf"]
+radius = 37.01351
+
+[sub_resource type="Animation" id="Animation_cvnsp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Icon:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.21816616]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Icon:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(21, 3)]
+}
+
+[sub_resource type="Animation" id="Animation_6t5aa"]
+resource_name = "attack"
+length = 1.0083333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Icon:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.30833334),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-0.21816616, -0.21816616]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Icon:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.30833334),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(21, 3), Vector2(-26, 1.9999989)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vgqql"]
+_data = {
+&"RESET": SubResource("Animation_cvnsp"),
+&"attack": SubResource("Animation_6t5aa")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ho7dx"]
+radius = 20.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cvnsp"]
+radius = 26.019224
+
+[sub_resource type="LabelSettings" id="LabelSettings_wrryf"]
+font_size = 43
+
+[sub_resource type="LabelSettings" id="LabelSettings_w7jj7"]
+font_size = 42
+
+[sub_resource type="LabelSettings" id="LabelSettings_cvnsp"]
+font_size = 52
+
+[node name="Player" type="CharacterBody2D" unique_id=1370725947]
+z_index = 10
+collision_layer = 2
+collision_mask = 0
+motion_mode = 1
+script = ExtResource("1_cvnsp")
+
+[node name="Node2D" type="Node2D" parent="." unique_id=1227333107]
+
+[node name="attack_cd" type="Timer" parent="Node2D" unique_id=1771766384]
+wait_time = 0.5
+
+[node name="Sword" type="Area2D" parent="Node2D" unique_id=331026829]
+collision_layer = 2
+collision_mask = 4
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Sword" unique_id=594661069]
+shape = SubResource("CircleShape2D_wrryf")
+
+[node name="Icon" type="Sprite2D" parent="Node2D/Sword" unique_id=1842171454]
+visible = false
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
+position = Vector2(21, 3)
+rotation = -0.21816616
+scale = Vector2(0.315, 0.040312506)
+texture = ExtResource("2_6t5aa")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/Sword" unique_id=620910276]
+libraries/ = SubResource("AnimationLibrary_vgqql")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2130109846]
+shape = SubResource("CircleShape2D_ho7dx")
+
+[node name="Icon" type="Sprite2D" parent="." unique_id=1239146074]
+scale = Vector2(0.24, 0.24)
+texture = ExtResource("2_6t5aa")
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1439024474]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=1453779015]
+shape = SubResource("CircleShape2D_cvnsp")
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=370316529]
+
+[node name="xp_bar" type="ProgressBar" parent="UI" unique_id=1418417156]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -27.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="coin_counter" type="Label" parent="UI" unique_id=617432377]
+offset_left = 74.0
+offset_top = 554.0
+offset_right = 114.0
+offset_bottom = 577.0
+label_settings = SubResource("LabelSettings_wrryf")
+
+[node name="Arrow Tower" type="Button" parent="UI" unique_id=1316866725]
+offset_left = 970.0
+offset_top = 371.0
+offset_right = 1112.7097
+offset_bottom = 450.0
+focus_mode = 0
+text = "Arrow"
+
+[node name="Gun Tower" type="Button" parent="UI" unique_id=1833504341]
+offset_left = 1003.0
+offset_top = 223.0
+offset_right = 1110.0968
+offset_bottom = 306.0
+focus_mode = 0
+text = "Gun"
+
+[node name="tower_placed" type="Label" parent="UI" unique_id=1337901459]
+offset_left = 643.0
+offset_top = 8.0
+offset_right = 703.0
+offset_bottom = 85.0
+label_settings = SubResource("LabelSettings_w7jj7")
+
+[node name="Timer" type="Timer" parent="UI/tower_placed" unique_id=1293113903]
+
+[node name="Label Up" type="Label" parent="UI" unique_id=603614349]
+offset_left = 302.0
+offset_top = 363.0
+offset_right = 389.0
+offset_bottom = 411.0
+label_settings = SubResource("LabelSettings_cvnsp")
+
+[connection signal="timeout" from="Node2D/attack_cd" to="." method="_on_attack_cd_timeout"]
+[connection signal="body_entered" from="Node2D/Sword" to="." method="_on_sword_body_entered"]
+[connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
+[connection signal="pressed" from="UI/Arrow Tower" to="." method="_on_arrow_tower_pressed"]
+[connection signal="pressed" from="UI/Gun Tower" to="." method="_on_gun_tower_pressed"]
+[connection signal="timeout" from="UI/tower_placed/Timer" to="." method="_on_timer_timeout"]
