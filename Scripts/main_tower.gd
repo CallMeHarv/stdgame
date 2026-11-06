@@ -15,7 +15,7 @@ func damage() -> void:
 	health -= enemy_damage
 	progress_bar.value = health
 	
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if health <= 0:
 		print("no health!")
 		timer.start()

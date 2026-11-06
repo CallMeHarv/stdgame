@@ -2,10 +2,11 @@ extends Node2D
 
 
 @export var bullet: PackedScene
-@onready var range = $Range
+@onready var area_range = $Range
+
 
 func _on_cooldown_timeout() -> void:
-	var enemies_in_range = range.get_overlapping_bodies()
+	var enemies_in_range = area_range.get_overlapping_bodies()
 	
 	if enemies_in_range.size() == 0:
 		return

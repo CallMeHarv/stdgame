@@ -1,8 +1,13 @@
 [gd_scene format=3 uid="uid://b63vh40psoqup"]
 
-[ext_resource type="Script" uid="uid://dfxw37hh00kfl" path="res://Scripts/enemy.gd" id="1_1f0kj"]
-[ext_resource type="PackedScene" uid="uid://cwabmdym5174g" path="res://Scenes/exp_coin.tscn" id="2_287tu"]
-[ext_resource type="Texture2D" uid="uid://p5yokcj6on15" path="res://icon.svg" id="2_afpow"]
+[ext_resource type="Script" uid="uid://dfxw37hh00kfl" path="res://Scripts/enemy.gd" id="1_47qgu"]
+[ext_resource type="Resource" uid="uid://byo7fjd8jo04v" path="res://Enemies/basic_enemy.tres" id="2_47qgu"]
+[ext_resource type="Script" uid="uid://ckwmjc2cm03fk" path="res://Scripts/Resource/PlayerData.gd" id="3_572h1"]
+[ext_resource type="Texture2D" uid="uid://p5yokcj6on15" path="res://icon.svg" id="3_rt1x0"]
+
+[sub_resource type="Resource" id="Resource_6t5aa"]
+script = ExtResource("3_572h1")
+metadata/_custom_type_script = "uid://ckwmjc2cm03fk"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ho7dx"]
 radius = 24.020824
@@ -13,13 +18,14 @@ radius = 30.413813
 [node name="Enemy" type="CharacterBody2D" unique_id=2079999507]
 collision_layer = 4
 motion_mode = 1
-script = ExtResource("1_1f0kj")
-loot_scene = ExtResource("2_287tu")
+script = ExtResource("1_47qgu")
+stats = ExtResource("2_47qgu")
+player_stat = SubResource("Resource_6t5aa")
 
 [node name="Icon" type="Sprite2D" parent="." unique_id=614268956]
 modulate = Color(1.6197081, 0, 0, 1)
 scale = Vector2(0.415, 0.415)
-texture = ExtResource("2_afpow")
+texture = ExtResource("3_rt1x0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1525403744]
 shape = SubResource("CircleShape2D_ho7dx")

@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Towers="*uid://cu0oispyofrc6"
+Damages="*uid://cckqsg38qrkpl"
 
 [display]
 

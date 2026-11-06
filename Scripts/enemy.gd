@@ -1,24 +1,36 @@
 extends CharacterBody2D
 
-var speed = 70
+@export var stats: Resource
+@export var player_stat: Resource
+
 @export var main_tower: CharacterBody2D
 @export var player: CharacterBody2D
-@export var loot_scene: PackedScene
+@onready var bullet = preload("res://Scripts/bullet.gd")
 
 
-func _physics_process(delta: float) -> void:
+
+
+func _physics_process(_delta: float) -> void:
 	if main_tower:
 		var direction = global_position.direction_to(main_tower.global_position)
-		velocity = direction * speed
+		velocity = direction * stats.speed
 	
 	
 	move_and_slide()
 	
 func take_damage():
-	var new_gem = loot_scene.instantiate()
-	new_gem.global_position = global_position
-	get_tree().current_scene.call_deferred("add_child", new_gem)
-	queue_free()
+	var coin_drop = randf_range(1, stats.coin_amount)
+	stats.health -= Damages.weapon_damage
+	print("-10")
+	if stats.health <= 0:
+		player_stat.coin_collected += coin_drop
+		print("dropped " + str(coin_drop))
+		var new_gem = stats.loot.instantiate()
+		new_gem.global_position = global_position
+		get_tree().current_scene.call_deferred("add_child", new_gem)
+		queue_free()
+	
+
 
 
 func _on_attack_body_entered(body: Node2D) -> void:

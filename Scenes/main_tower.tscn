@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://3i5b5p6l5jpo" path="res://Scripts/main_tower.gd" id="1_iikcy"]
 [ext_resource type="Texture2D" uid="uid://p5yokcj6on15" path="res://icon.svg" id="1_mtobq"]
 [ext_resource type="Script" uid="uid://y3d1pfd8yukt" path="res://Scripts/spawner.gd" id="2_i3s53"]
-[ext_resource type="PackedScene" uid="uid://b63vh40psoqup" path="res://Scenes/enemy.tscn" id="3_lpi8q"]
+[ext_resource type="PackedScene" uid="uid://b63vh40psoqup" path="res://Enemies/enemy.tscn" id="3_lpi8q"]
 [ext_resource type="Script" uid="uid://dg3bl44sna7el" path="res://Scripts/tower_weapon.gd" id="4_fdfa6"]
 [ext_resource type="PackedScene" uid="uid://bt76rfllv12by" path="res://Scenes/bullet.tscn" id="5_63s2w"]
 

@@ -4,6 +4,7 @@ var speed = 400.0
 var direction = Vector2.RIGHT
 var distance_travelled = 0.0
 
+
 func _physics_process(delta: float) -> void:
 	var movement = direction * speed * delta
 	position += movement

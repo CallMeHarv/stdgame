@@ -1,14 +1,11 @@
 class_name Player
 extends CharacterBody2D
 
+@export var stats: Resource
 
-var speed = 300
-var health = 100.0
+@export var speed = 300
+@export var health = 100.0
 
-var experience = 0
-var experience_level = 1
-var exp_required = 100
-var coin_collected = 0
 @onready var xp_bar: ProgressBar = $UI/xp_bar
 @onready var coin_counter: Label = $UI/coin_counter
 @onready var tower_placed: Label = $UI/tower_placed
@@ -34,8 +31,8 @@ func _process(_delta: float) -> void:
 
 	move_and_slide()
 	
-	xp_bar.value = experience
-	xp_bar.max_value = exp_required
+	xp_bar.value = stats.experience
+	xp_bar.max_value = stats.exp_required
 	
 	if Input.is_action_just_pressed("Attack"):
 		sword.monitoring = true
@@ -45,28 +42,28 @@ func _process(_delta: float) -> void:
 	
 
 func get_exp(amount):
-	experience += amount
+	stats.experience += amount
 	
 	
 
 func earn_coin(coins):
 	# might separate xp and coins
-	coin_collected += coins
-	coin_counter.text = "coins: " + str(coin_collected)
+	stats.coin_collected += coins
+	stats.coin_counter.text = "coins: " + str(stats.coin_collected)
 	
 	
 	
-	if experience >= exp_required:
-		experience -= exp_required
+	if stats.experience >= stats.exp_required:
+		stats.experience -= stats.exp_required
 		level_up()
 	
 
 func level_up():
-	experience_level += 1
-	exp_required += 50
+	stats.experience_level += 1
+	stats.exp_required += 50
 	label_up.show()
 	label_up.text = "Leveled Up!"
-	print(experience_level)
+	print(stats.experience_level)
 	timer.start()
 
 func buy_tower():
@@ -74,10 +71,10 @@ func buy_tower():
 
 
 func _on_arrow_tower_pressed() -> void:
-	if coin_collected >= Towers.arrow_tower:
+	if stats.coin_collected >= Towers.arrow_tower:
 		tower_placed.show()
-		coin_collected -= Towers.arrow_tower
-		coin_counter.text = "coins: " + str(coin_collected)
+		stats.coin_collected -= Towers.arrow_tower
+		stats.coin_counter.text = "coins: " + str(stats.coin_collected)
 		tower_placed.text = "Placed Arrow Tower!"
 		timer.start()
 		print("placed arrow tower")
@@ -88,10 +85,10 @@ func _on_arrow_tower_pressed() -> void:
 
 
 func _on_gun_tower_pressed() -> void:
-	if coin_collected >= Towers.gun_tower:
+	if stats.coin_collected >= Towers.gun_tower:
 		tower_placed.show()
-		coin_collected -= Towers.gun_tower
-		coin_counter.text = "coins: " + str(coin_collected)
+		stats.coin_collected -= Towers.gun_tower
+		stats.coin_counter.text = "coins: " + str(stats.coin_collected)
 		tower_placed.text = "Placed Gun Tower!"
 		timer.start()
 		print("placed gun tower")
@@ -99,6 +96,8 @@ func _on_gun_tower_pressed() -> void:
 		tower_placed.text = "Not enough coins!"
 		tower_placed.show()
 		timer.start()
+		
+	# dictionary for coins and towers
 
 func _on_timer_timeout() -> void:
 	tower_placed.hide()

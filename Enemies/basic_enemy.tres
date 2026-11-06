@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="EnemyStats" format=3 uid="uid://byo7fjd8jo04v"]
+
+[ext_resource type="PackedScene" uid="uid://cwabmdym5174g" path="res://Scenes/exp_coin.tscn" id="1_a7n0r"]
+[ext_resource type="Script" uid="uid://bnj3emkpj53xy" path="res://Scripts/Resource/enemy_stats.gd" id="1_ttfov"]
+
+[resource]
+script = ExtResource("1_ttfov")
+health = 10
+speed = 80
+loot = ExtResource("1_a7n0r")
+coin_amount = 1
+exp_amount = 10
+metadata/_custom_type_script = "uid://bnj3emkpj53xy"
